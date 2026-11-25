@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using PruebaTecnica.Api.Middleware;
 using PruebaTecnica.Api.Security;
+using PruebaTecnica.Application;
 using PruebaTecnica.Infrastructure;
 using PruebaTecnica.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
