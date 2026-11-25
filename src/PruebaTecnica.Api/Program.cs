@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PruebaTecnica.Api.Endpoints;
 using PruebaTecnica.Api.Middleware;
 using PruebaTecnica.Api.Security;
 using PruebaTecnica.Application;
@@ -24,5 +25,6 @@ app.UseExceptionHandler();
 app.UseMiddleware<ApiKeyMiddleware>();
 
 app.MapGet("/", () => "PruebaTecnica API");
+app.MapUserEndpoints();
 
 app.Run();
