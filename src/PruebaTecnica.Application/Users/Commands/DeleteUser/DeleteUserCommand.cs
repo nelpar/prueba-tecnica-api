@@ -1,0 +1,3 @@
+﻿namespace PruebaTecnica.Application.Users.Commands.DeleteUser;
+
+public record DeleteUserCommand(int Id);
