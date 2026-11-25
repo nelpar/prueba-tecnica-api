@@ -27,5 +27,6 @@ app.UseMiddleware<ApiKeyMiddleware>();
 app.MapGet("/", () => "PruebaTecnica API");
 app.MapUserEndpoints();
 app.MapAddressEndpoints();
+app.MapCurrencyEndpoints();
 
 app.Run();
