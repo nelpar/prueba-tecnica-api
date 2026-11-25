@@ -6,4 +6,4 @@ public record UpdateUserCommand(
     [property: JsonIgnore] int Id,
     string Name,
     string Email,
-    bool IsActive);
+    bool? IsActive = null);

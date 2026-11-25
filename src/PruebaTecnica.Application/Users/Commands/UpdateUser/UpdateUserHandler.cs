@@ -20,7 +20,7 @@ public class UpdateUserHandler(IAppDbContext db) : ICommandHandler<UpdateUserCom
 
         user.Name = command.Name.Trim();
         user.Email = email;
-        user.IsActive = command.IsActive;
+        user.IsActive = command.IsActive ?? user.IsActive;
 
         await db.SaveChangesAsync(cancellationToken);
 

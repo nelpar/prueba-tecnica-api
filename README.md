@@ -153,6 +153,7 @@ src/
 - **CQRS sin MediatR.** Se implementó con interfaces propias (`ICommandHandler`, `IQueryHandler`) registradas automáticamente por reflexión. MediatR pasó a licencia comercial en 2025, y para este alcance un dispatcher no aporta valor.
 - **Validación de formato vs. reglas de negocio.** FluentValidation valida el formato del request (400). Las reglas que requieren consultar la base (usuario existente, email o código único) están en los handlers y responden 404 o 409.
 - **Unicidad sin distinguir mayúsculas.** Email y código de moneda se normalizan (minúsculas y mayúsculas, respectivamente) y además tienen índice único con collation `NOCASE`.
+- **`isActive` opcional al modificar un usuario.** Si `PUT /users/{id}` no incluye `isActive`, se conserva el valor actual (no se desactiva al usuario por omisión).
 - **El id siempre viene de la ruta.** En `PUT` y en el alta de direcciones, el id del body se ignora (`[JsonIgnore]`).
 - **Borrado en cascada.** Eliminar un usuario elimina sus direcciones.
 - **Dirección de un usuario inexistente → 404**, tanto al crear como al listar.
