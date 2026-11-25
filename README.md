@@ -159,6 +159,7 @@ src/
 - **Dirección de un usuario inexistente → 404**, tanto al crear como al listar.
 - **La conversión es una Query.** No modifica datos; usa `POST` porque así lo define el enunciado.
 - **Redondeo de la conversión:** 4 decimales, redondeo comercial (`MidpointRounding.AwayFromZero`).
+- **Límites numéricos.** `amount` y `rateToBase` aceptan hasta 1.000.000.000.000. Si aun así el cálculo excede el rango de `decimal` (por ejemplo, al convertir a una moneda con una tasa muy pequeña), la API responde 400 en lugar de un error interno.
 - **Códigos de moneda ISO 4217:** se validan como 3 letras.
 - **`decimal` en SQLite.** SQLite no tiene tipo decimal; EF Core lo guarda como texto. Por eso nunca se ordena ni se filtra por `RateToBase` en la base, y los cálculos se hacen en memoria con `decimal`.
 

@@ -24,9 +24,16 @@ public class ConvertCurrencyHandler(IAppDbContext db) : IQueryHandler<ConvertCur
         var to = currencies.FirstOrDefault(c => c.Code == toCode)
             ?? throw new NotFoundException($"No existe la moneda '{toCode}'.");
 
-        var baseAmount = query.Amount * from.RateToBase;
-        var convertedAmount = Math.Round(baseAmount / to.RateToBase, DecimalPlaces, MidpointRounding.AwayFromZero);
+        try
+        {
+            var baseAmount = query.Amount * from.RateToBase;
+            var convertedAmount = Math.Round(baseAmount / to.RateToBase, DecimalPlaces, MidpointRounding.AwayFromZero);
 
-        return new ConversionResponse(from.Code, to.Code, query.Amount, convertedAmount);
+            return new ConversionResponse(from.Code, to.Code, query.Amount, convertedAmount);
+        }
+        catch (OverflowException)
+        {
+            throw new BadRequestException("El resultado de la conversión excede el rango numérico permitido.");
+        }
     }
 }

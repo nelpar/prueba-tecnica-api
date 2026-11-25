@@ -15,6 +15,7 @@ public class CreateCurrencyValidator : AbstractValidator<CreateCurrencyCommand>
             .MaximumLength(100);
 
         RuleFor(x => x.RateToBase)
-            .GreaterThan(0).WithMessage("La tasa debe ser mayor a 0.");
+            .GreaterThan(0).WithMessage("La tasa debe ser mayor a 0.")
+            .LessThanOrEqualTo(1_000_000_000_000m).WithMessage("La tasa no puede superar 1.000.000.000.000.");
     }
 }
