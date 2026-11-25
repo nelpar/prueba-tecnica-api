@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿namespace PruebaTecnica.Domain.Entities;
 
-namespace PruebaTecnica.Domain.Entities
+public class User
 {
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string? PasswordHash { get; set; }
+    public bool IsActive { get; set; } = true;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public class User
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string? PasswordHash { get; set; }
-        public bool IsActive { get; set; } = true;
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        public ICollection<Address> Addresses { get; set; } = new List<Address>();
-    }
+    public ICollection<Address> Addresses { get; set; } = new List<Address>();
 }
