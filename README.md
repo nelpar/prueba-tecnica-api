@@ -91,8 +91,10 @@ POST /users
 X-API-KEY: test-2004
 Content-Type: application/json
 
-{ "name": "Juan", "email": "juan@test.com", "password": "secreta123" }
+{ "name": "Juan", "email": "juan@test.com" }
 ```
+
+Opcionalmente se puede enviar `"password"` (mínimo 8 caracteres); se guarda hasheada.
 
 **Crear dirección**
 ```http
@@ -147,7 +149,7 @@ src/
 
 ## Decisiones de diseño
 
-- **Contraseña en el alta de usuario.** El enunciado pide guardar la contraseña hasheada, pero el ejemplo de `POST /users` no la incluye. Se agregó `password` (mínimo 8 caracteres) al body. Se hashea con `PasswordHasher` de ASP.NET Core Identity (PBKDF2 con salt) y nunca se devuelve en las respuestas.
+- **Contraseña opcional en el alta de usuario.** El modelo pide guardar la contraseña hasheada, pero el ejemplo de `POST /users` del enunciado solo envía `name` y `email`. Para respetar ese contrato, `password` es opcional: si se envía, se valida (mínimo 8 caracteres) y se guarda hasheada con `PasswordHasher` de ASP.NET Core Identity (PBKDF2 con salt). Nunca se devuelve en las respuestas.
 - **CQRS sin MediatR.** Se implementó con interfaces propias (`ICommandHandler`, `IQueryHandler`) registradas automáticamente por reflexión. MediatR pasó a licencia comercial en 2025, y para este alcance un dispatcher no aporta valor.
 - **Validación de formato vs. reglas de negocio.** FluentValidation valida el formato del request (400). Las reglas que requieren consultar la base (usuario existente, email o código único) están en los handlers y responden 404 o 409.
 - **Unicidad sin distinguir mayúsculas.** Email y código de moneda se normalizan (minúsculas y mayúsculas, respectivamente) y además tienen índice único con collation `NOCASE`.

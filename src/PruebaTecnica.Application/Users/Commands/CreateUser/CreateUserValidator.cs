@@ -17,7 +17,7 @@ public class CreateUserValidator : AbstractValidator<CreateUserCommand>
             .MaximumLength(150);
 
         RuleFor(x => x.Password)
-            .NotEmpty().WithMessage("La contraseña es obligatoria.")
-            .MinimumLength(8).WithMessage("La contraseña debe tener al menos 8 caracteres.");
+            .MinimumLength(8).WithMessage("La contraseña debe tener al menos 8 caracteres.")
+            .When(x => x.Password is not null);
     }
 }

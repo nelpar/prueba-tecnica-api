@@ -19,7 +19,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .UseCollation("NOCASE");
         builder.HasIndex(u => u.Email).IsUnique();
 
-        builder.Property(u => u.PasswordHash).IsRequired();
+        builder.Property(u => u.PasswordHash).IsRequired(false);
 
         builder.HasMany(u => u.Addresses)
             .WithOne(a => a.User)

@@ -21,7 +21,7 @@ public class CreateUserHandler(IAppDbContext db, IPasswordHasher passwordHasher)
         {
             Name = command.Name.Trim(),
             Email = email,
-            PasswordHash = passwordHasher.Hash(command.Password)
+            PasswordHash = command.Password is null ? null : passwordHasher.Hash(command.Password)
         };
 
         db.Users.Add(user);
