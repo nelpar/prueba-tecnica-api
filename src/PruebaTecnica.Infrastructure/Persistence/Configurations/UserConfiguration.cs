@@ -21,6 +21,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.PasswordHash).IsRequired(false);
 
+        builder.Property(u => u.CreatedAt)
+            .HasConversion(
+                value => value.ToUniversalTime(),
+                value => DateTime.SpecifyKind(value, DateTimeKind.Utc));
+
         builder.HasMany(u => u.Addresses)
             .WithOne(a => a.User)
             .HasForeignKey(a => a.UserId)
